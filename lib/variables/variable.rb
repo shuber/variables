@@ -1,9 +1,8 @@
 require 'abstract_class'
 require 'variables/interface'
+require 'variables/undefined_variable'
 
 module Variables
-  UndefinedVariable = Class.new(RuntimeError)
-
   class Variable
     extend AbstractClass
     include Interface
