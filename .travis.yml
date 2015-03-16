@@ -1,6 +1,6 @@
 addons:
   code_climate:
-    repo_token: XXX
+    repo_token: e438cb2f24b677f5638441a8f31d294e34afe3fb5a5b5ec9b2d13d5d1fdf4d12
 
 install: bundle install --jobs 3 --retry 3
 
