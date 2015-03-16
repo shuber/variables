@@ -41,6 +41,8 @@ name.fetch { :default }                      #=> "Bob"
 undefined.fetch { |name| "#{name}-default" } #=> "@undefined-default"
 ```
 
+You can do the same thing for class variables with `SomeClass.class_variable(:whatever)`.
+
 
 ## Testing
 
