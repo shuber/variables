@@ -22,17 +22,23 @@ Ruby 1.8.7+
 ```ruby
 user = User.find_by_name("Bob")
 
-user.instance_variable(:name).get      #=> "Bob"
-user.instance_variable(:undefined).get #=> nil
+name = user.instance_variable(:name)
+undefined = user.instance_variable(:undefined)
 
-user.instance_variable(:name).defined?      #=> true
-user.instance_variable(:undefined).defined? #=> false
+name.get      #=> "Bob"
+undefined.get #=> nil
 
-user.instance_variable(:name).fetch      #=> "Bob"
-user.instance_variable(:undefined).fetch #=> Variables::UndefinedVariable - undefined variable "undefined"
+name.defined?      #=> true
+undefined.defined? #=> false
 
-user.instance_variable(:name).fetch(:default)      #=> "Bob"
-user.instance_variable(:undefined).fetch(:default) #=> :default
+name.fetch      #=> "Bob"
+undefined.fetch #=> Variables::UndefinedVariable - undefined variable "undefined"
+
+name.fetch(:default)      #=> "Bob"
+undefined.fetch(:default) #=> :default
+
+name.fetch { :default }                      #=> "Bob"
+undefined.fetch { |name| "#{name}-default" } #=> "@undefined-default"
 ```
 
 
