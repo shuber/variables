@@ -12,7 +12,7 @@ RSpec.describe Variables::ClassVariable do
     end
 
     it 'should return true if the variable is defined' do
-      owner.class_variable_set('@@undefined', nil)
+      owner.send(:class_variable_set, '@@undefined', nil)
       expect(subject).to be_defined
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe Variables::ClassVariable do
     end
 
     it 'should return the value if the variable is defined' do
-      owner.class_variable_set('@@undefined', :value)
+      owner.send(:class_variable_set, '@@undefined', :value)
       expect(subject.fetch).to eq(:value)
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Variables::ClassVariable do
     end
 
     it 'should return the value if the variable is defined' do
-      owner.class_variable_set('@@undefined', :value)
+      owner.send(:class_variable_set, '@@undefined', :value)
       expect(subject.get).to eq(:value)
     end
   end
@@ -61,7 +61,8 @@ RSpec.describe Variables::ClassVariable do
   describe '#replace' do
     it 'should replace a variable and return the old value' do
       expect(subject.replace(:value)).to be_nil
-      expect(owner.class_variable_get('@@undefined')).to eq(:value)
+      value = owner.send(:class_variable_get, '@@undefined')
+      expect(value).to eq(:value)
     end
 
     it 'should replace a variable for the duration of a block' do
@@ -69,10 +70,12 @@ RSpec.describe Variables::ClassVariable do
       expect(action).to raise_error(NameError)
 
       subject.replace(:value) do
-        expect(owner.class_variable_get('@@undefined')).to eq(:value)
+        value = owner.send(:class_variable_get, '@@undefined')
+        expect(value).to eq(:value)
       end
 
-      expect(owner.class_variable_get('@@undefined')).to be_nil
+      value = owner.send(:class_variable_get, '@@undefined')
+      expect(value).to be_nil
     end
 
     it 'should return the last expression of a block' do
@@ -84,14 +87,14 @@ RSpec.describe Variables::ClassVariable do
   describe '#set' do
     it 'should set the new value if the variable is undefined' do
       subject.set(:value)
-      value = owner.class_variable_get('@@undefined')
+      value = owner.send(:class_variable_get, '@@undefined')
       expect(value).to eq(:value)
     end
 
     it 'should overwrite a value if the variable is defined' do
-      owner.class_variable_set('@@undefined', nil)
+      owner.send(:class_variable_set, '@@undefined', nil)
       subject.set(:value)
-      value = owner.class_variable_get('@@undefined')
+      value = owner.send(:class_variable_get, '@@undefined')
       expect(value).to eq(:value)
     end
   end
