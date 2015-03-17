@@ -11,7 +11,7 @@ module Variables
         class_variable(name).fetch(*args, &block)
       end
 
-      def class_variable_replace(*args, &block)
+      def class_variable_replace(name, *args, &block)
         class_variable(name).replace(*args, &block)
       end
     end
