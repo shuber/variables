@@ -33,5 +33,15 @@ RSpec.describe Variables::CoreExt::Object do
       value = subject.instance_variable_replace(:test, :a, :b, &block)
       expect(value).to eq(:example)
     end
+
+    it 'should support a hash of variables to replace' do
+      subject.instance_variable_replace(one: 1, two: 2) do
+        expect(subject.instance_variable_get('@one')).to eq(1)
+        expect(subject.instance_variable_get('@two')).to eq(2)
+      end
+
+      expect(subject.instance_variable_get('@one')).to be_nil
+      expect(subject.instance_variable_get('@two')).to be_nil
+    end
   end
 end
