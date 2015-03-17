@@ -6,6 +6,21 @@
 
 Ruby already has `Method` objects, why not `Variable` objects as well?
 
+## Why?
+
+Some methods already exist for interacting with *class* and *instance* variables:
+
+* `Module#class_variable_defined?`
+* `Module#class_variable_get`
+* `Module#class_variable_set`
+* `Object#instance_variable_defined?`
+* `Object#instance_variable_get`
+* `Object#instance_variable_set`
+
+But notice that these all share a common prefix - `instance_variable_` or `class_variable_`.
+
+This feels a little [smelly](http://en.wikipedia.org/wiki/Code_smell), let's try to [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) it up with some `Variable` objects!
+
 
 ## Installation
 
@@ -38,7 +53,7 @@ user = User.new('Bob')              #=> #<User:0x007f8f6a84aa98>
 user.instance_variable_get('@name') #=> "Bob"
 ```
 
-Similar to [`Object#method`](http://ruby-doc.org/core-1.8.7/Object.html#method-i-method), a handy `instance_variable` method is available for us to use.
+Similar to [`Object#method`](http://ruby-doc.org/core-1.8.7/Object.html#method-i-method), the `instance_variable` method returns a `Variable` object.
 
 ```ruby
 name = user.instance_variable(:name) #=> #<InstanceVariable: #<User>@name>
@@ -85,6 +100,13 @@ name.fetch { |name| "#{name}-default" }      #=> "Bob"
 undefined.fetch { |name| "#{name}-default" } #=> "@undefined-default"
 ```
 
+The `Object#instance_variable_fetch` method allows us to `fetch` a variable's value by name.
+
+```ruby
+name.fetch                          #=> "Bob"
+user.instance_variable_fetch(:name) #=> "Bob"
+```
+
 We can update a `Variable` value by using the `set` method.
 
 ```ruby
@@ -104,18 +126,47 @@ We can even temporarily `replace` a value for the duration of a `block`.
 ```ruby
 user.instance_variable_get('@name') #=> "Bob"
 
-value = name.replace('Steve') do
+name.replace('Steve') do
   user.instance_variable_get('@name') #=> "Steve"
-
-  'we can return a value here'
 end
 
 user.instance_variable_get('@name') #=> "Bob"
-
-value.inspect #=> "we can return a value here"
 ```
 
-Everything that we do with *instance* variables can be done with *class* variables as well!
+Note that when using the `block` form of `replace`, the last expression of the block is returned.
+
+```ruby
+name.replace('Steve') { 1 + 1 } #=> 2
+```
+
+The `Object#instance_variable_replace` method allows us to `replace` a variable's value by name.
+
+```ruby
+user.instance_variable_get('@name') #=> "Bob"
+
+user.instance_variable_replace(:name, 'Steve') do
+  user.instance_variable_get('@name') #=> "Steve"
+end
+
+user.instance_variable_get('@name') #=> "Bob"
+```
+
+The `instance_variable_replace` method also accepts a hash of variables to `replace`.
+
+```ruby
+user.instance_variable_get('@name') #=> "Bob"
+user.instance_variable_get('@test') #=> nil
+
+user.instance_variable_replace(name: 'Steve', test: 'example') do
+  user.instance_variable_get('@name') #=> "Steve"
+  user.instance_variable_get('@test') #=> "example"
+end
+
+user.instance_variable_get('@name') #=> "Bob"
+user.instance_variable_get('@test') #=> nil
+```
+
+**Everything that we can do with *instance* variables can be done with *class* variables as well!**
 
 ```ruby
 example = User.class_variable(:example) #=> #<ClassVariable: User@@name>
