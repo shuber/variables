@@ -21,7 +21,7 @@ Ruby 1.8.7+
 
 ## Usage
 
-Let's experiment with an example `User` class.
+Let's experiment with a simple `User` class.
 
 ```ruby
 class User
