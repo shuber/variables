@@ -1,6 +1,6 @@
 # [![Sean Huber](https://cloud.githubusercontent.com/assets/2419/6550752/832d9a64-c5ea-11e4-9717-6f9aa6e023b5.png)](https://github.com/shuber) variables
 
-[![Build Status](https://secure.travis-ci.org/shuber/variables.svg)](http://travis-ci.org/shuber/variables) [![Code Climate](https://codeclimate.com/github/shuber/variables/badges/gpa.svg)](https://codeclimate.com/github/shuber/variables) [![Coverage](https://codeclimate.com/github/shuber/variables/badges/coverage.svg)](https://codeclimate.com/github/shuber/variables)
+[![Build Status](https://secure.travis-ci.org/shuber/variables.svg)](http://travis-ci.org/shuber/variables) [![Code Climate](https://codeclimate.com/github/shuber/variables/badges/gpa.svg)](https://codeclimate.com/github/shuber/variables) [![Coverage](https://codeclimate.com/github/shuber/variables/badges/coverage.svg)](https://codeclimate.com/github/shuber/variables) [![Gem Version](https://badge.fury.io/rb/variables.svg)](http://badge.fury.io/rb/variables)
 
 > `Variable` objects for *class* and *instance* variables
 
