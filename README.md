@@ -21,29 +21,111 @@ Ruby 1.8.7+
 
 ## Usage
 
+Let's experiment with an example `User` class.
+
 ```ruby
-user = User.find_by_name("Bob")
+class User
+  def initialize(name)
+    @name = name
+  end
+end
+```
 
-name = user.instance_variable(:name)
-undefined = user.instance_variable(:undefined)
+Objects can have any number of *instance* variables. 
 
-name.get      #=> "Bob"
-undefined.get #=> nil
+```ruby
+user = User.new('Bob')              #=> #<User:0x007f8f6a84aa98>
+user.instance_variable_get('@name') #=> "Bob"
+```
 
+Similar to [`Object#method`](http://ruby-doc.org/core-1.8.7/Object.html#method-i-method), this gem provides you with a handy `instance_variable` method.
+
+```ruby
+name = user.instance_variable(:name) #=> #<InstanceVariable: #<User>@name>
+```
+
+But unlike `Object#method`, this method does not require a variable to actually be defined.
+
+```ruby
+undefined = user.instance_variable(:undefined) #=> #<InstanceVariable: #<User>@undefined>
+```
+
+We can check if a variable is defined by using the `defined?` method.
+
+```ruby
 name.defined?      #=> true
 undefined.defined? #=> false
+```
 
+Once you have a `Variable` object, you can `get` its value.
+
+```ruby
+name.get      #=> "Bob"
+undefined.get #=> nil
+```
+
+Similar to [`Hash#fetch`](http://ruby-doc.org/core-1.9.3/Hash.html#method-i-fetch), the `fetch` method raises an exception if the variable is undefined.
+
+```ruby
 name.fetch      #=> "Bob"
 undefined.fetch #=> Variables::UndefinedVariable - undefined variable "undefined"
+```
 
+The `fetch` method optionally accepts a default value to return if the variable is undefined.
+
+```ruby
 name.fetch(:default)      #=> "Bob"
 undefined.fetch(:default) #=> :default
+```
 
-name.fetch { :default }                      #=> "Bob"
+Default values can also be defined with a `block` which is yielded with the `Variable` name.
+
+```ruby
+name.fetch { |_name| :default }              #=> "Bob"
 undefined.fetch { |name| "#{name}-default" } #=> "@undefined-default"
 ```
 
-You can do the same thing for class variables with `SomeClass.class_variable(:whatever)`.
+We can update a `Variable` value by using the `set` method.
+
+```ruby
+name.set('Steve')                   #=> "Steve"
+user.instance_variable_get('@name') #=> "Steve"
+```
+
+The `replace` method is similar to `set`, but it returns the old value instead of the new value.
+
+```ruby
+name.replace('Bob')                 #=> "Steve"
+user.instance_variable_get('@name') #=> "Bob"
+```
+
+We can even temporarily `replace` a value for the duration of a `block`.
+
+```ruby
+user.instance_variable_get('@name') #=> "Bob"
+
+value = name.replace('Steve') do
+  user.instance_variable_get('@name') #=> "Steve"
+
+  'we can return a value here'
+end
+
+user.instance_variable_get('@name') #=> "Bob"
+
+value.inspect #=> "we can return a value here"
+```
+
+Everything that we do with *instance* variables can be done with *class* variables as well!
+
+```ruby
+example = User.class_variable(:example) #=> #<ClassVariable: User@@name>
+
+example.defined? #=> false
+
+example.set('testing') #=> "testing"
+
+User.class_variable_get('@@example') #=> "testing"
+```
 
 
 ## Testing
