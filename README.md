@@ -38,7 +38,7 @@ user = User.new('Bob')              #=> #<User:0x007f8f6a84aa98>
 user.instance_variable_get('@name') #=> "Bob"
 ```
 
-Similar to [`Object#method`](http://ruby-doc.org/core-1.8.7/Object.html#method-i-method), this gem provides you with a handy `instance_variable` method.
+Similar to [`Object#method`](http://ruby-doc.org/core-1.8.7/Object.html#method-i-method), a handy `instance_variable` method is available for us to use.
 
 ```ruby
 name = user.instance_variable(:name) #=> #<InstanceVariable: #<User>@name>
@@ -57,7 +57,7 @@ name.defined?      #=> true
 undefined.defined? #=> false
 ```
 
-Once you have a `Variable` object, you can `get` its value.
+Once we have a `Variable` object, we can `get` its value.
 
 ```ruby
 name.get      #=> "Bob"
@@ -78,10 +78,10 @@ name.fetch(:default)      #=> "Bob"
 undefined.fetch(:default) #=> :default
 ```
 
-Default values can also be defined with a `block` which is yielded with the `Variable` name.
+Default values can also be defined with a `block` which is yielded the `Variable` name.
 
 ```ruby
-name.fetch { |_name| :default }              #=> "Bob"
+name.fetch { |name| "#{name}-default" }      #=> "Bob"
 undefined.fetch { |name| "#{name}-default" } #=> "@undefined-default"
 ```
 
