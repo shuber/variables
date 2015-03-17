@@ -78,7 +78,7 @@ name.fetch(:default)      #=> "Bob"
 undefined.fetch(:default) #=> :default
 ```
 
-Default values can also be defined with a `block` which is yielded the `Variable` name.
+Default values can also be defined with a `block` which is yielded with the `Variable` name.
 
 ```ruby
 name.fetch { |name| "#{name}-default" }      #=> "Bob"
