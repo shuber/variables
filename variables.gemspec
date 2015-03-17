@@ -2,7 +2,7 @@ require File.expand_path('../lib/variables/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.author           = 'Sean Huber'
-  s.description      = ''
+  s.description      = 'Ruby already has `Method` objects, why not `Variable` objects as well?'
   s.email            = 'github@shuber.io'
   s.extra_rdoc_files = %w(LICENSE)
   s.files            = `git ls-files`.split("\n")
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.name             = 'variables'
   s.rdoc_options     = %w(--charset=UTF-8 --inline-source --line-numbers --main README.md)
   s.require_paths    = %w(lib)
-  s.summary          = ''
+  s.summary          = '`Variable` objects for class and instance variables'
   s.test_files       = `git ls-files -- spec/*`.split("\n")
   s.version          = Variables::VERSION
 

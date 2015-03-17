@@ -2,7 +2,9 @@
 
 [![Build Status](https://secure.travis-ci.org/shuber/variables.svg)](http://travis-ci.org/shuber/variables) [![Code Climate](https://codeclimate.com/github/shuber/variables/badges/gpa.svg)](https://codeclimate.com/github/shuber/variables) [![Coverage](https://codeclimate.com/github/shuber/variables/badges/coverage.svg)](https://codeclimate.com/github/shuber/variables)
 
-> Ruby already has `Method` objects, why not `Variable` objects as well?
+> `Variable` objects for *class* and *instance* variables
+
+Ruby already has `Method` objects, why not `Variable` objects as well?
 
 
 ## Installation
