@@ -35,7 +35,7 @@ RSpec.describe Variables::CoreExt::Module do
     end
 
     it 'should support a hash of variables to replace' do
-      subject.class_variable_replace(one: 1, two: 2) do
+      subject.class_variable_replace(:one => 1, :two => 2) do
         expect(subject.send(:class_variable_get, '@@one')).to eq(1)
         expect(subject.send(:class_variable_get, '@@two')).to eq(2)
       end
