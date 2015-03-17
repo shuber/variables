@@ -135,13 +135,9 @@ User.class_variable_get('@@example') #=> "testing"
 * `Module#class_variable`
 * `Module#class_variable_fetch`
 * `Module#class_variable_replace`
-
-
 * `Object#instance_variable`
 * `Object#instance_variable_fetch`
 * `Object#instance_variable_replace`
-
-
 * `Variable#defined?`
 * `Variable#fetch`
 * `Variable#get`
