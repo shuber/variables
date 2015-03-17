@@ -128,6 +128,29 @@ User.class_variable_get('@@example') #=> "testing"
 ```
 
 
+## API
+
+[YARD Documentation](http://www.rubydoc.info/github/shuber/variables)
+
+* `Module#class_variable`
+* `Module#class_variable_fetch`
+* `Module#class_variable_replace`
+
+
+* `Object#instance_variable`
+* `Object#instance_variable_fetch`
+* `Object#instance_variable_replace`
+
+
+* `Variable#defined?`
+* `Variable#fetch`
+* `Variable#get`
+* `Variable#name`
+* `Variable#owner`
+* `Variable#replace`
+* `Variable#set`
+
+
 ## Testing
 
 ```
