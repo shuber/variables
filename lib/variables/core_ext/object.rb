@@ -8,20 +8,20 @@ module Variables
       end
 
       def instance_variable_fetch(name, *args, &block)
-        fetch_variable_with(:instance_variable, name, *args, &block)
+        fetch_variable(:instance_variable, name, *args, &block)
       end
 
       def instance_variable_replace(name, *args, &block)
-        replace_variable_with(:instance_variable, name, *args, &block)
+        replace_variable(:instance_variable, name, *args, &block)
       end
 
       private
 
-      def fetch_variable_with(variable, name, *args, &block)
+      def fetch_variable(variable, name, *args, &block)
         send(variable, name).fetch(*args, &block)
       end
 
-      def replace_variable_with(variable, name, *args, &block)
+      def replace_variable(variable, name, *args, &block)
         if name.is_a?(Hash) && args.empty?
           replace_variable_proc(variable, name, &block).call
         else

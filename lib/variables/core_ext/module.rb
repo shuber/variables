@@ -9,11 +9,11 @@ module Variables
       end
 
       def class_variable_fetch(name, *args, &block)
-        fetch_variable_with(:class_variable, name, *args, &block)
+        fetch_variable(:class_variable, name, *args, &block)
       end
 
       def class_variable_replace(name, *args, &block)
-        replace_variable_with(:class_variable, name, *args, &block)
+        replace_variable(:class_variable, name, *args, &block)
       end
     end
   end
