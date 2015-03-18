@@ -1,7 +1,7 @@
 require File.expand_path('../../../../lib/variables/core_ext/object', __FILE__)
 
 RSpec.describe Variables::CoreExt::Object do
-  subject { Object.new.extend(described_class) }
+  subject { Object.new }
 
   describe '#instance_variable' do
     it 'should initialize a new InstanceVariable' do

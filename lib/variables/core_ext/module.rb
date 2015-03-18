@@ -1,11 +1,9 @@
 require 'variables/class_variable'
-require 'variables/variable_methods'
+require 'variables/core_ext/object'
 
 module Variables
   module CoreExt
     module Module
-      include VariableMethods
-
       def class_variable(name)
         ClassVariable.new(self, name)
       end
@@ -20,3 +18,5 @@ module Variables
     end
   end
 end
+
+Module.send(:include, Variables::CoreExt::Module)
