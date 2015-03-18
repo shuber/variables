@@ -22,7 +22,7 @@ module Variables
       end
 
       def replace_variable(variable, name, *args, &block)
-        if name.is_a?(Hash) && args.empty?
+        if name.is_a?(Hash) && args.empty? && block_given?
           replace_variable_proc(variable, name, &block).call
         else
           send(variable, name).replace(*args, &block)

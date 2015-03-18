@@ -43,5 +43,10 @@ RSpec.describe Variables::CoreExt::Object do
       expect(subject.instance_variable_get('@one')).to be_nil
       expect(subject.instance_variable_get('@two')).to be_nil
     end
+
+    it 'should only support a hash of variables if a block is given' do
+      action = proc { subject.instance_variable_replace(:one => 1, :two => 2) }
+      expect(action).to raise_error(ArgumentError)
+    end
   end
 end
