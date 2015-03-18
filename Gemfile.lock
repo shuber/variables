@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    variables (0.0.0)
+    variables (0.0.1)
       abstract_class (>= 1.0.0)
 
 GEM
